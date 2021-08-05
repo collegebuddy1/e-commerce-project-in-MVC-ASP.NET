@@ -4,6 +4,20 @@
 }
 
 <h1>Product Catalog</h1>
+@if(TempData["Message"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["Message"]
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button> 
+    </div>
+    
+}
+
+<a asp-action="Add" class="float-right btn btn-success">Add Product</a>
+<br />
+<br />
 <div class="table-responsive">
     <table class="table table-hover table-bordered">
         <thead class="thead-dark">

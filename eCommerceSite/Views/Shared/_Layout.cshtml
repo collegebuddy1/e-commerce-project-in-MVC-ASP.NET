@@ -1,4 +1,31 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.EntityFrameworkCore
+@*Using gets added to the ViewImports Page*@
+@inject IHttpContextAccessor sessionData
+@inject eCommerceSite.Data.ProductContext db
+@{       
+    int? userId = sessionData.HttpContext.Session.GetInt32("UserId");
+    string userName = null;
+    if (userId.HasValue)
+    {
+        string userNameFromSession = sessionData.HttpContext.Session.GetString("userName");
+        if (userNameFromSession == null) // If userName is not in session put it in session to call DB only once
+        {
+            userName = await (from u in db.UserAccounts
+                              where u.UserID == userId
+                              select u.UserName).SingleOrDefaultAsync();
+
+            sessionData.HttpContext.Session.SetString("userName", userName);
+        }
+        else
+        {
+            userName = userNameFromSession;
+        }
+
+    }
+
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -24,9 +51,21 @@
                         <li class="nav-item">
                             <a class="nav-link text-light" asp-area="" asp-controller="Product" asp-action="Index">Product Catalog</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="User" asp-action="Register">Register</a>
-                        </li>
+                        @if (userId == null) // If not logged in
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-controller="User" asp-action="Register">Register</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-controller="User" asp-action="Login">Login</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav.item">
+                                <a class="nav-link text-light disabled">@userName</a> 
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>

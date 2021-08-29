@@ -20,7 +20,7 @@ namespace eCommerceSite.Models
     { // Does not go in DB do not add DbSet for this!!
         [Required]
         [StringLength(20)]
-        [Display(Name = "User Name")]
+        [Display(Name = "Username")]
         public string UserName { get; set; }
 
         [Required]
@@ -47,5 +47,16 @@ namespace eCommerceSite.Models
         [DataType(DataType.Date)] // Time ignored
         [Display(Name = "Date of Birth")]
         public DateTime? DateOfBirth { get; set; } // Optional
+    }
+
+    public class LogInViewModel
+    { // Does not go in DB do not add DbSet for this!!
+        [Required]
+        [Display(Name = "Username or Email ")]
+        public string UserNameOrEmail { get; set; }
+
+        [Required]
+        [DataType(DataType.Password)]
+        public string Password { get; set; }
     }
 }

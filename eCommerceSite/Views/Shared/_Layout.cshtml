@@ -53,7 +53,7 @@
                         </li>
                         @if (userId == null) // If not logged in
                         {
-                            <li class="nav-item">
+                            <li class="nav-item ml-auto"> @*ml-auto aligns to right*@
                                 <a class="nav-link text-light" asp-area="" asp-controller="User" asp-action="Register">Register</a>
                             </li>
                             <li class="nav-item">
@@ -62,8 +62,11 @@
                         }
                         else
                         {
+                            <li class="nav.item ml-auto">
+                                <a class="nav-link text-light disabled">@userName</a>
+                            </li>
                             <li class="nav.item">
-                                <a class="nav-link text-light disabled">@userName</a> 
+                                <a class="nav-link text-light" asp-area="" asp-controller="User" asp-action="Logout">Logout</a>
                             </li>
                         }
                     </ul>

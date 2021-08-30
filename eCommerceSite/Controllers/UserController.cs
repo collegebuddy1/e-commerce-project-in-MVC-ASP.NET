@@ -66,8 +66,13 @@ namespace eCommerceSite.Controllers
                 // Add to database
                 _context.UserAccounts.Add(account);
                 await _context.SaveChangesAsync();
+
+                // Log user in
+                LogUserIn(account.UserID);
+
                 // Say Hello!
                 TempData["Message"] = $"Thank you for registering an account with us {reg.UserName}!";
+
                 // Redirect to home
                 return RedirectToAction("Index", "Home");
             }
@@ -92,10 +97,10 @@ namespace eCommerceSite.Controllers
                 return View(logIn);
             }
             UserAccount account = await (from u in _context.UserAccounts
-                                   where (u.UserName == logIn.UserNameOrEmail
-                                       || u.Email == logIn.UserNameOrEmail)
-                                   && u.Password == logIn.Password
-                                   select u).SingleOrDefaultAsync();
+                                         where (u.UserName == logIn.UserNameOrEmail
+                                             || u.Email == logIn.UserNameOrEmail)
+                                         && u.Password == logIn.Password
+                                         select u).SingleOrDefaultAsync();
 
             // Method syntax
             //UserAccount acc = await _context.UserAccounts
@@ -116,7 +121,7 @@ namespace eCommerceSite.Controllers
             TempData["Message"] = $"Welcome back {account.UserName}!";
 
             // Log User into website. Do this after adding sessions to start up.
-            HttpContext.Session.SetInt32("UserId", account.UserID);
+            LogUserIn(account.UserID);
 
             return RedirectToAction("Index", "Home");
         }
@@ -128,6 +133,11 @@ namespace eCommerceSite.Controllers
 
             // Redirect to Homepage
             return RedirectToAction("Index", "Home");
+        }
+
+        private void LogUserIn(int accountId)
+        {
+            HttpContext.Session.SetInt32("UserId", accountId);
         }
     }
 }

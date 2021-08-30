@@ -28,7 +28,34 @@ namespace eCommerceSite.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Map Data to user account object !This step is for ViewModels
+                // Can refactor this later MAKE A ISSUE! delete this if you made the issue ^.^
+                // Check if Email is unique
+                bool isEmailTaken = await (from acc in _context.UserAccounts
+                                           where acc.Email == reg.Email
+                                           select acc).AnyAsync();
+
+                // If email is not Unique error and send abck to view
+                if (isEmailTaken)
+                {
+                    ModelState.AddModelError(nameof(RegisterViewModel.Email), "That email is already in use.");
+                }
+
+                // Check for Username
+                bool isUsernameTaken = await (from acc in _context.UserAccounts
+                                           where acc.UserName == reg.UserName
+                                           select acc).AnyAsync();
+
+                // If username is not Unique error and send abck to view
+                if (isUsernameTaken)
+                {
+                    ModelState.AddModelError(nameof(RegisterViewModel.UserName), "That username is already in use.");
+                }
+                if (isEmailTaken || isUsernameTaken)
+                {
+                    return View(reg);
+                }
+
+                // Map Data to user account object !!This step is for ViewModels!!
                 UserAccount account = new UserAccount()
                 {
                     DateOfBirth = reg.DateOfBirth,
@@ -80,7 +107,7 @@ namespace eCommerceSite.Controllers
             if (account == null)
             {
                 // Credentials did not match
-                ModelState.AddModelError(string.Empty, "Credentials were not found.");
+                ModelState.AddModelError(nameof(LogInViewModel.UserNameOrEmail), "That account was not found please try again.");
                 // Error Message
                 TempData["Message"] = $"Im sorry your Login Information was not correct.";
                 return View(logIn);

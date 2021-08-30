@@ -40,6 +40,7 @@ namespace eCommerceSite.Models
         public string Password { get; set; }
 
         [Required]
+        [DataType(DataType.Password)]
         [Compare(nameof(Password))]
         [Display(Name = "Confirm Password")]
         public string ConfirmPassword { get; set; }

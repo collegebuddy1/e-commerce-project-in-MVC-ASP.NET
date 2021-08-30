@@ -18,6 +18,7 @@ namespace eCommerceSite.Controllers
         {
             _context = context;
         }
+
         public IActionResult Register()
         {
             return View();

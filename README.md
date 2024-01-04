@@ -1,10 +1,7 @@
-[![.NET Core](https://github.com/Tinet0624/eCommerceSite-inClassProject/actions/workflows/dotnet-core.yml/badge.svg)](https://github.com/Tinet0624/eCommerceSite-inClassProject/actions/workflows/dotnet-core.yml)
+## PROJECT MART - College Project Service
 
-# eCommerceSite-inClassProject
-Basic eCommerce Website to learn ASP.NET Core MVC Concept.<br>
-This small app is an inclass project that has us create a DataBase driven ecommerce site with Entity.<br>
-We also learn how to use more bootstrap to make the site look nice.
+Text now to get college project installed
 
-## Prerequisists
-- [.Net Core 5.0.X SDK](https://dotnet.microsoft.com/download)
-- [Visual Studio](https://visualstudio.microsoft.com/) with ASP.NET and Web Dev workload OR [VS Code](https://code.visualstudio.com/)
+[![Whatsapp Contact](https://www.projectmart.in/_next/static/media/Logo.99b856f5.svg)](https://api.whatsapp.com/send?phone=917676409450&text=Could%20you%20help%20me%20complete%20my%20college%20project%3F)
+
+Contact us now on **Whatsapp**([Click here](https://api.whatsapp.com/send?phone=917676409450&text=Could%20you%20help%20me%20complete%20my%20college%20project%3F))
